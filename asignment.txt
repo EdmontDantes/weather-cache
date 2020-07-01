@@ -1,0 +1,18 @@
+-- Create an app called weather-cache
+-- Use the dark sky api for this app
+https://darksky.net/dev/docs
+-- DarkSky has a cap on the number of calls per day that can be made to your app:
+The first 1,000 API requests you make every day are free of charge.
+Every API request over the free daily limit costs \$0.0001.
+Without credit card sign-up it will just be capped at 1000 calls.
+-- Data should update every 5 hours in case the forecast changes.
+Cache the data using Redis so that, based on last zip code, if the last call was within 5 hours it will use the cache data, otherwise, it will make a call to the api.
+HINT: Test on a shorter time than 5 hours so that you can be sure the data will update from db at right time vs using data from cache
+NOTE: Yes I know dark sky api doesn't take zip codes don't ask, find a solution.
+-- Render on the page whether the data is from the database or from the cache
+-- Create ejs page where, when user can input the zip code and it returns the 5 day forecast for that zipcode
+-- Display a 5 day forecast either on same ejs page as input
+    or on another page.
+It should show user readable time, summary for the day, sunrise and sunset times, hi and low temperature in fahrenheit, and if you can figure out how to use the icon an icon for the weather. (not required)
+-- Each day should be displayed in a card. Looks of the card not imperative this time. But DO format the data in a clean and readable way.
+-- You can use routes instead of controllers this time.
