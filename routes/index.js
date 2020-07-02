@@ -21,11 +21,19 @@ const timeToCacheForInHours = 5;
 //declare null location lat and long to be used after post request by zipcode
 let locationLat;
 let locationLng;
-
+let date;
+let currTime;
+let currSummary;
+let currIcon;
+let currTemp;
+let weeklySummary;
+let weeklyIcon;
+let data;
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-}); 
+// router.get('/', function(req, res, next) {
+//   let 
+//   res.render('index', { message: 'Cached Data', date, currTime, currSummary, currIcon, currTemp, weeklySummary, weeklyIcon, data, moment });
+// }); 
 
 const checkForData = async (req, res, next) => {
   try {
@@ -54,7 +62,7 @@ const checkForData = async (req, res, next) => {
     next(err);
   }
 }
-router.post('/weather/zipcode-query', async (req, res, next) => {
+router.post('/zipcode-query', async (req, res, next) => {
   try {
     let geoCodeQueryZip;
     geoCodeQueryZip = req.body.zipcode;
@@ -66,10 +74,10 @@ router.post('/weather/zipcode-query', async (req, res, next) => {
     locationLat = resultGeoData.data.results[0].location.lat;
     locationLng = resultGeoData.data.results[0].location.lng;
     console.log(locationLat, locationLng)
-    res.redirect('/weather')
+    res.redirect('/')
     // res.json({message: 'your lat lng', locationLat, locationLng})
     } else {
-      res.redirect('/weather')
+      res.redirect('/')
     }
   } catch (err) {
     next(err)
@@ -80,7 +88,7 @@ router.post('/weather/zipcode-query', async (req, res, next) => {
 //   res.render('index');
 // })
 
-router.get('/weather', checkForData, async (req, res, next) => {
+router.get('/', checkForData, async (req, res, next) => {
   try {
 
 
@@ -100,7 +108,7 @@ router.get('/weather', checkForData, async (req, res, next) => {
       res.render('index', { message: 'Pulled Fresh Data from API', date, currTime, currSummary, currIcon, currTemp, weeklySummary, weeklyIcon, data, moment });
       // res.json({message: 'from api straight pull', newWeatherData });
       } else {
-        res.render('index', {message: 'No Data was Pulled' })
+        res.render('index', {message: 'No Data was Pulled', date, currTime, currSummary, currIcon, currTemp, weeklySummary, weeklyIcon, data, moment })
       }
 
     

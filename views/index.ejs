@@ -7,7 +7,7 @@
   <body>
     <div class="app">
       <div class="header-query-container">
-        <form action="/weather/zipcode-query" method="POST">
+        <form action="/zipcode-query" method="POST">
         <label for="zipcode">Input your desired Zipcode to view five day weather Forecast:</label>
         <input type="text" id="zipecode-query-input" name="zipcode" placeholder="zipcode"/>
         <button type="submit">search weather</button>
@@ -25,24 +25,27 @@
         </div>
       </div>
       <div class="main-content">
-        <% for(let i =0; i < 5; i++) { %>
-          <div class="daily-tile">
-            <div class="user-readable-time">
-              <span class="time-of-the-day"><%=  moment.unix(data[i].time).format('MMMM Do YYYY, h:mm a')  %></span>
+        
+        <% for(let i =0; i < 5; i++) { %>           
+          <% if(data && moment) { %>
+            <div class="daily-tile">
+              <div class="user-readable-time">
+                <span class="time-of-the-day"><%=  moment.unix(data[i].time).format('MMMM Do YYYY, h:mm a')  %></span>
+              </div>
+              <div class="summary-for-the-day">
+                <%= data[i].summary %>
+              </div>
+              <div class="sunrise-sunset">
+                <span class="sun-times">Sunrise: <%= moment.unix(data[i].sunriseTime).format('MMMM Do YYYY, h:mm:ss a') %> </span>
+                <span class="sun-times">Sunset: <%= moment.unix(data[i].sunsetTime).format('MMMM Do YYYY, h:mm:ss a') %> </span>
+              </div>
+              <div class="hi-and-low-temp">
+                <span class="temps-display">Temperature High: <%= data[i].temperatureHigh %> F</span>
+                <span class="temps-display">Temperature High: <%= data[i].temperatureLow %> F</span>
+              </div>
             </div>
-            <div class="summary-for-the-day">
-              <%= data[i].summary %>
-            </div>
-            <div class="sunrise-sunset">
-              <span class="sun-times">Sunrise: <%= moment.unix(data[i].sunriseTime).format('MMMM Do YYYY, h:mm:ss a') %> </span>
-              <span class="sun-times">Sunset: <%= moment.unix(data[i].sunsetTime).format('MMMM Do YYYY, h:mm:ss a') %> </span>
-            </div>
-            <div class="hi-and-low-temp">
-              <span class="temps-display">Temperature High: <%= data[i].temperatureHigh %> F</span>
-              <span class="temps-display">Temperature High: <%= data[i].temperatureLow %> F</span>
-            </div>
+            <% } %>
         <% } %>
-        </div>
       </div>
     </div>
   </body>
